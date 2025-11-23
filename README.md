@@ -1,0 +1,476 @@
+# GlobalEdMentor: Study Abroad Mentorship Platform
+
+A comprehensive database-driven analytics application for the GlobalEdMentor platform, connecting students with mentors for study abroad guidance.
+
+## Project Overview
+
+GlobalEdMentor is a community-driven mentorship platform that connects students (mentees) with verified mentors who are currently studying at foreign universities, alumni of international institutions, or working professionals. The platform provides affordable, pay-per-need mentorship sessions for SOP review, resume feedback, interview practice, and general counseling.
+
+## Features
+
+- **MySQL Database**: Complete relational database schema with 15+ tables
+- **MongoDB Implementation**: NoSQL document-based database with 5 collections
+- **20 SQL Queries**: Comprehensive queries covering all required query types
+- **MongoDB Queries**: Simple, complex, and aggregate queries for NoSQL demonstration
+- **Python Application**: Console-based analytics application
+- **Web Interface**: Flask-based web application with visualizations
+- **Data Visualization**: 5+ charts (Pie, Bar, Boxplot, Histogram, Scatter Plot)
+- **Real-time Analytics**: Statistics and insights from database queries
+
+## Project Structure
+
+```
+GlobalEdMentorMySQLImplementation/
+├── MySQL Implementation/
+│   ├── DDL_Queries.sql        # MySQL database schema definition
+│   ├── DML_Queries.sql        # MySQL sample data insertion
+│   └── SQL_Queries.sql        # 20 SQL queries covering all query types
+├── NoSQL Implementation/
+│   ├── MongoDB_Setup.js       # MongoDB collections and sample data
+│   └── MongoDB_Queries.js     # MongoDB queries (simple, complex, aggregate)
+├── app.py                     # Flask web application
+├── globaledmentor_app.py      # Console-based Python application
+├── requirements.txt           # Python dependencies
+├── templates/
+│   ├── index.html            # Web dashboard home page
+│   └── query.html            # Query results template
+└── README.md                  # This file
+```
+
+## Database Setup
+
+### Prerequisites
+
+- MySQL Server installed and running
+- MySQL Workbench (recommended) or command line access
+
+### Step 1: Create Database Schema
+
+**Using MySQL Workbench:**
+
+1. Open MySQL Workbench
+2. Connect to your MySQL server (use your MySQL credentials)
+3. Open `MySQL Implementation/DDL_Queries.sql` file
+4. Execute the entire script (⚡ icon or `Ctrl+Shift+Enter`)
+
+**Using Command Line:**
+
+```bash
+mysql -u root -p < "MySQL Implementation/DDL_Queries.sql"
+# Enter your MySQL password when prompted
+```
+
+### Step 2: Load Sample Data
+
+**Using MySQL Workbench:**
+
+1. Open `MySQL Implementation/DML_Queries.sql` file
+2. Execute the entire script
+
+**Using Command Line:**
+
+```bash
+mysql -u root -p < "MySQL Implementation/DML_Queries.sql"
+# Enter your MySQL password when prompted
+```
+
+### Step 3: Verify Setup
+
+Run a test query in MySQL Workbench:
+
+```sql
+USE GlobalEdMentor;
+SELECT COUNT(*) FROM mentor;
+SELECT COUNT(*) FROM mentee;
+SELECT COUNT(*) FROM university;
+```
+
+## SQL Queries
+
+The `MySQL Implementation/SQL_Queries.sql` file contains **20 queries** covering all required query types:
+
+### Query Types Covered:
+
+1. ✅ **Simple Query** - Query 1
+2. ✅ **Aggregate Query** - Queries 7, 8, 9, 10
+3. ✅ **Inner Join** - Queries 2, 3, 5, 6, 20
+4. ✅ **Outer Join (LEFT JOIN)** - Query 4
+5. ✅ **Nested Query (NOT IN)** - Query 11
+6. ✅ **EXISTS** - Query 12
+7. ✅ **NOT EXISTS** - Query 13
+8. ✅ **Correlated Subquery** - Query 14
+9. ✅ **>=ALL** - Query 15
+10. ✅ **>ANY** - Query 16
+11. ✅ **UNION** - Query 17
+12. ✅ **Subquery in SELECT** - Query 18
+13. ✅ **Subquery in FROM** - Query 19
+
+### Running Queries
+
+**In MySQL Workbench:**
+
+1. Open `MySQL Implementation/SQL_Queries.sql`
+2. Execute queries one by one or all at once
+3. Review results in the Result Grid
+
+**From Command Line:**
+
+```bash
+mysql -u root -p GlobalEdMentor < "MySQL Implementation/SQL_Queries.sql"
+```
+
+## Python Applications
+
+### Prerequisites Setup
+
+**1. Create and Activate Virtual Environment:**
+
+```bash
+# Create virtual environment (if not already created)
+python3 -m venv .venv
+
+# Activate virtual environment
+# On macOS/Linux:
+source .venv/bin/activate
+
+# On Windows:
+# .venv\Scripts\activate
+```
+
+**2. Install Dependencies:**
+
+```bash
+# Make sure virtual environment is activated
+pip install -r requirements.txt
+```
+
+**3. Set Up Environment Variables:**
+
+```bash
+# Copy the example file
+cp .env.example .env
+
+# Edit .env file and add your MySQL credentials
+# DB_HOST=localhost
+# DB_NAME=GlobalEdMentor
+# DB_USER=root
+# DB_PASSWORD=your_password_here
+```
+
+### Console Application (`globaledmentor_app.py`)
+
+A command-line application that executes queries and displays analytics.
+
+**Run:**
+
+```bash
+# Make sure virtual environment is activated
+source .venv/bin/activate
+
+# Run the application
+python globaledmentor_app.py
+```
+
+**Features:**
+
+- Executes 5 main queries
+- Performs analytics on retrieved data
+- Displays formatted results in console
+- Generates visualizations (charts open in separate windows)
+
+### Web Application (`app.py`)
+
+A Flask-based web interface for viewing queries and visualizations.
+
+**Run:**
+
+```bash
+# Make sure virtual environment is activated
+source .venv/bin/activate
+
+# Run the application
+python app.py
+```
+
+**Access:**
+Open your browser and navigate to: `http://127.0.0.1:5000`
+
+**Features:**
+
+- Dashboard with key statistics
+- Database connection status indicator
+- Interactive query pages
+- Embedded charts and visualizations
+- Clean, simple interface
+
+**Note:** Always activate the virtual environment (`source .venv/bin/activate`) before running the applications.
+
+## Database Connection
+
+### Connection Parameters
+
+The applications use environment variables for database configuration. Create a `.env` file in the project root with the following variables:
+
+```env
+DB_HOST=localhost
+DB_NAME=GlobalEdMentor
+DB_USER=root
+DB_PASSWORD=your_password_here
+```
+
+**Default values** (if environment variables are not set):
+
+- **Host**: `localhost`
+- **Port**: `3306` (default MySQL port)
+- **Database**: `GlobalEdMentor`
+- **User**: `root`
+- **Auth Plugin**: `mysql_native_password`
+
+### Setting Up Environment Variables
+
+1. Copy the example file:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Edit `.env` and add your MySQL credentials:
+   ```env
+   DB_HOST=localhost
+   DB_NAME=GlobalEdMentor
+   DB_USER=root
+   DB_PASSWORD=your_password_here
+   ```
+
+**Note**: The `.env` file is already in `.gitignore` and will not be committed to the repository. Use `.env.example` as a template.
+
+## Data Visualization
+
+The application includes **5 types of charts**:
+
+1. **Pie Chart** - Education level distribution
+2. **Bar Chart** - Mentor earnings comparison
+3. **Boxplot** - Feedback rating distribution
+4. **Histogram** - Years of experience distribution
+5. **Scatter Plot** - Sessions vs earnings relationship
+
+Charts are generated using matplotlib and displayed:
+
+- In separate windows (console app)
+- Embedded in web pages (web app)
+
+## Requirements
+
+### Python Packages
+
+- `mysql-connector-python` >= 8.0.33
+- `matplotlib` >= 3.5.0
+- `numpy` >= 1.21.0
+- `flask` >= 2.0.0
+- `python-dotenv` >= 1.0.0
+
+### Installation
+
+**Using Virtual Environment (Recommended):**
+
+```bash
+# Create virtual environment
+python3 -m venv .venv
+
+# Activate virtual environment
+source .venv/bin/activate  # On macOS/Linux
+# .venv\Scripts\activate   # On Windows
+
+# Install all dependencies
+pip install -r requirements.txt
+```
+
+**Without Virtual Environment:**
+
+```bash
+pip install -r requirements.txt
+```
+
+### System Requirements
+
+- Python 3.6+
+- MySQL Server 5.7+ or 8.0+
+- Web browser (for web application)
+- Virtual environment (recommended for isolation)
+
+## Troubleshooting
+
+### Database Connection Issues
+
+**"Access denied" error:**
+
+- Verify MySQL server is running
+- Check your MySQL password in `.env` file
+- Ensure user has proper permissions
+
+**"Database not found":**
+
+- Run `MySQL Implementation/DDL_Queries.sql` to create the database
+- Verify database name is exactly `GlobalEdMentor`
+
+**Authentication plugin error:**
+
+```sql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password';
+FLUSH PRIVILEGES;
+```
+
+### Web Application Issues
+
+**Port 5000 already in use:**
+
+- Stop other Flask applications
+- Or change port in `app.py`: `app.run(debug=True, host='127.0.0.1', port=5001)`
+
+**Charts not displaying:**
+
+- Ensure matplotlib is installed: `pip install matplotlib`
+- Check browser console for errors
+
+### Python Application Issues
+
+**Module not found:**
+
+```bash
+# Make sure virtual environment is activated
+source .venv/bin/activate
+
+# Install missing packages
+pip install -r requirements.txt
+```
+
+**Virtual environment not activated:**
+
+- Always activate the virtual environment before running applications:
+  ```bash
+  source .venv/bin/activate
+  ```
+
+**Environment variables not loading:**
+
+- Ensure `.env` file exists in the project root
+- Check that `.env` contains all required variables (DB_HOST, DB_NAME, DB_USER, DB_PASSWORD)
+- Verify `python-dotenv` is installed: `pip install python-dotenv`
+
+**Charts not opening:**
+
+- On headless servers, charts won't display
+- Web application works better for remote access
+
+## Key Queries Overview
+
+1. **Simple Query**: Most expensive service
+2. **Inner Joins**: Mentors, mentees, sessions, programs
+3. **Outer Join**: All mentors with/without university affiliations
+4. **Aggregates**: Counts, sums, averages with GROUP BY
+5. **Nested Queries**: NOT IN, EXISTS, NOT EXISTS
+6. **Correlated**: Mentors above average performance
+7. **Comparison**: >=ALL, >ANY operators
+8. **Set Operations**: UNION for subscriptions
+9. **Subqueries**: In SELECT and FROM clauses
+
+## Analytics Provided
+
+- Mentor statistics (count, experience, education distribution)
+- Revenue and earnings analysis
+- Session completion rates
+- Feedback and rating statistics
+- Program and university popularity
+- Mentee-to-mentor ratios
+- Activity and engagement metrics
+
+## Notes
+
+- All data is retrieved directly from MySQL database
+- Queries are tested and ready for demonstration
+- Web interface provides clean visualization of results
+- Console app is useful for quick data analysis
+- Charts are generated on-the-fly from database queries
+
+## MongoDB Implementation (NoSQL)
+
+### Overview
+
+A NoSQL implementation using MongoDB with document-based data modeling. Includes 5 collections with embedded documents and arrays.
+
+### Collections
+
+1. **mentors** (8 documents) - Mentor profiles with embedded user and university information
+2. **mentees** (10 documents) - Mentee profiles with embedded user and target programs
+3. **sessions** (10 documents) - Session records with embedded service, mentor, mentee, feedback, and payment
+4. **universities** (5 documents) - University information with embedded programs array
+5. **payments** (8 documents) - Payment records with embedded session information
+
+### Setup
+
+**Using MongoDB Compass:**
+
+1. Open MongoDB Compass
+2. Connect to your MongoDB instance
+3. Open MongoDB Shell (MONGOSH tab)
+4. Copy and paste entire content of `NoSQL Implementation/MongoDB_Setup.js`
+5. Execute to create collections and data
+
+**Using MongoDB Online Playground:**
+
+1. Go to https://mongoplayground.net/ or https://try.mongodb.com/
+2. Copy content from `NoSQL Implementation/MongoDB_Setup.js`
+3. Paste and execute
+
+### MongoDB Queries
+
+The `NoSQL Implementation/MongoDB_Queries.js` file contains **7 queries** including:
+
+1. **Simple Query** ✅
+
+   - Find verified mentors with PhD degree
+   - Simple find with conditions
+
+2. **Complex Query** ✅
+
+   - Completed sessions with multiple conditions (status, rating, payment)
+   - Uses $gte, $exists operators
+   - Sorting and field projection
+   - Alternative query with $or operator
+
+3. **Aggregate Query** ✅
+   - Total earnings per mentor
+   - Uses $match, $group, $sum, $avg, $sort, $project
+   - Groups by mentor and calculates statistics
+
+**Additional Queries:**
+
+- Aggregate: Count mentees by country
+- Aggregate: University program statistics
+- Complex: Mentors with USA university affiliation
+- Aggregate: Average price by service type
+
+### Running MongoDB Queries
+
+**In MongoDB Compass:**
+
+1. Open MongoDB Shell
+2. Copy queries from `NoSQL Implementation/MongoDB_Queries.js`
+3. Paste and execute
+
+**In Online Playground:**
+
+1. Copy individual queries
+2. Paste into playground
+3. Execute
+
+### Data Model
+
+- **Denormalized Structure**: User information embedded in mentors/mentees
+- **Arrays**: Multiple programs per university, multiple universities per mentor
+- **Embedded Documents**: Session includes all related information in one document
+- **No Joins Required**: All related data accessible from single document
+
+## Contact & Support
+
+For issues or questions about the database or application, refer to the query comments in `MySQL Implementation/SQL_Queries.sql` or `NoSQL Implementation/MongoDB_Queries.js` or check the application error messages.
