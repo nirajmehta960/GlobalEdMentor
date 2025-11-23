@@ -91,19 +91,19 @@ The `MySQL Implementation/SQL_Queries.sql` file contains **20 queries** covering
 
 ### Query Types Covered:
 
-1. ✅ **Simple Query** - Query 1
-2. ✅ **Aggregate Query** - Queries 7, 8, 9, 10
-3. ✅ **Inner Join** - Queries 2, 3, 5, 6, 20
-4. ✅ **Outer Join (LEFT JOIN)** - Query 4
-5. ✅ **Nested Query (NOT IN)** - Query 11
-6. ✅ **EXISTS** - Query 12
-7. ✅ **NOT EXISTS** - Query 13
-8. ✅ **Correlated Subquery** - Query 14
-9. ✅ **>=ALL** - Query 15
-10. ✅ **>ANY** - Query 16
-11. ✅ **UNION** - Query 17
-12. ✅ **Subquery in SELECT** - Query 18
-13. ✅ **Subquery in FROM** - Query 19
+1. ✅ **Simple Query** 
+2. ✅ **Aggregate Query** 
+3. ✅ **Inner Join** 
+4. ✅ **Outer Join (LEFT JOIN)** 
+5. ✅ **Nested Query (NOT IN)** 
+6. ✅ **EXISTS** 
+7. ✅ **NOT EXISTS** 
+8. ✅ **Correlated Subquery** 
+9. ✅ **>=ALL** 
+10. ✅ **>ANY** 
+11. ✅ **UNION** 
+12. ✅ **Subquery in SELECT** 
+13. ✅ **Subquery in FROM** 
 
 ### Running Queries
 
@@ -426,30 +426,6 @@ A NoSQL implementation using MongoDB with document-based data modeling. Includes
 
 The `NoSQL Implementation/MongoDB_Queries.js` file contains **7 queries** including:
 
-1. **Simple Query** ✅
-
-   - Find verified mentors with PhD degree
-   - Simple find with conditions
-
-2. **Complex Query** ✅
-
-   - Completed sessions with multiple conditions (status, rating, payment)
-   - Uses $gte, $exists operators
-   - Sorting and field projection
-   - Alternative query with $or operator
-
-3. **Aggregate Query** ✅
-   - Total earnings per mentor
-   - Uses $match, $group, $sum, $avg, $sort, $project
-   - Groups by mentor and calculates statistics
-
-**Additional Queries:**
-
-- Aggregate: Count mentees by country
-- Aggregate: University program statistics
-- Complex: Mentors with USA university affiliation
-- Aggregate: Average price by service type
-
 ### Running MongoDB Queries
 
 **In MongoDB Compass:**
@@ -470,7 +446,3 @@ The `NoSQL Implementation/MongoDB_Queries.js` file contains **7 queries** includ
 - **Arrays**: Multiple programs per university, multiple universities per mentor
 - **Embedded Documents**: Session includes all related information in one document
 - **No Joins Required**: All related data accessible from single document
-
-## Contact & Support
-
-For issues or questions about the database or application, refer to the query comments in `MySQL Implementation/SQL_Queries.sql` or `NoSQL Implementation/MongoDB_Queries.js` or check the application error messages.
