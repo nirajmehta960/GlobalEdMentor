@@ -1,7 +1,7 @@
 USE GlobalEdMentor;
 
 -- =====================================================
--- 1. SIMPLE QUERY: Find the most expensive mentorship service
+-- 1. SIMPLE QUERY: Find the most expensive mentorship service offered on the platform
 -- =====================================================
 SELECT description, price_per_hour
 FROM service
@@ -9,7 +9,7 @@ ORDER BY price_per_hour DESC
 LIMIT 1;
 
 -- =====================================================
--- 2. INNER JOIN: List all mentors with their expertise and education level
+-- 2. INNER JOIN: List all mentors with their expertise, education level, and years of experience
 -- =====================================================
 SELECT m.mentor_id, ua.name AS mentor_name, m.field_of_expertise, m.education_level, m.years_of_experience
 FROM mentor m
@@ -17,7 +17,7 @@ JOIN user_account ua ON m.user_id = ua.user_id
 ORDER BY m.years_of_experience DESC;
 
 -- =====================================================
--- 3. INNER JOIN: Show all mentees and their intended study countries
+-- 3. INNER JOIN: Show all mentees with their current education level and target study destination
 -- =====================================================
 SELECT me.mentee_id, ua.name AS mentee_name, me.current_education_level, 
        me.intended_study_country, me.target_degree, me.field_of_interest
@@ -26,8 +26,7 @@ JOIN user_account ua ON me.user_id = ua.user_id
 ORDER BY me.intended_study_country;
 
 -- =====================================================
--- 4. OUTER JOIN (LEFT JOIN): Show all mentors and their university affiliations
--- (including mentors without any university affiliation)
+-- 4. OUTER JOIN (LEFT JOIN): Show all mentors and their university affiliations, including mentors without any university affiliation
 -- =====================================================
 SELECT ua.name AS mentor_name, u.name AS university_name, mu.relation, mu.since_year
 FROM mentor m
@@ -37,7 +36,7 @@ LEFT JOIN university u ON mu.university_id = u.university_id
 ORDER BY ua.name;
 
 -- =====================================================
--- 5. INNER JOIN: Display all mentees and the programs they are targeting
+-- 5. INNER JOIN: Display all mentees and the specific programs they are targeting for admission
 -- =====================================================
 SELECT ua.name AS mentee_name, p.name AS target_program, u.name AS university_name
 FROM mentee_target_program mtp
@@ -48,7 +47,7 @@ JOIN university u ON p.university_id = u.university_id
 ORDER BY ua.name;
 
 -- =====================================================
--- 6. INNER JOIN: Show all session appointments with mentor and mentee names
+-- 6. INNER JOIN: Show all session appointments with both mentor and mentee names
 -- =====================================================
 SELECT sa.session_id, s.description AS service, ua_m.name AS mentor_name, ua_me.name AS mentee_name, 
        sa.start_time, sa.duration_min, sa.status
@@ -61,7 +60,7 @@ JOIN user_account ua_me ON me.user_id = ua_me.user_id
 ORDER BY sa.start_time;
 
 -- =====================================================
--- 7. AGGREGATE: Count how many sessions each mentor has completed
+-- 7. AGGREGATE: Calculate the total number of sessions with 'completed' status for each mentor
 -- =====================================================
 SELECT ua.name AS mentor_name, COUNT(sa.session_id) AS completed_sessions
 FROM session_appointment sa
@@ -73,7 +72,7 @@ GROUP BY ua.name
 ORDER BY completed_sessions DESC;
 
 -- =====================================================
--- 8. AGGREGATE: Calculate total earnings per mentor
+-- 8. AGGREGATE: Calculate total earnings per mentor from captured payments
 -- =====================================================
 SELECT ua.name AS mentor_name, SUM(p.amount) AS total_earnings
 FROM payment p
@@ -87,7 +86,7 @@ GROUP BY ua.name
 ORDER BY total_earnings DESC;
 
 -- =====================================================
--- 9. AGGREGATE WITH HAVING: Find top-rated mentors (average feedback rating ≥ 4.5)
+-- 9. AGGREGATE WITH HAVING: Find top-rated mentors with an average feedback rating of 4.5 or higher
 -- =====================================================
 SELECT ua.name AS mentor_name, ROUND(AVG(f.rating),2) AS avg_rating, COUNT(f.feedback_id) AS total_feedbacks
 FROM feedback f
@@ -100,7 +99,7 @@ HAVING avg_rating >= 4.5
 ORDER BY avg_rating DESC;
 
 -- =====================================================
--- 10. AGGREGATE: Count total number of programs per university
+-- 10. AGGREGATE: Show how many graduate programs each university has in the system
 -- =====================================================
 SELECT u.name AS university_name, COUNT(p.program_id) AS total_programs
 FROM university u
@@ -109,9 +108,7 @@ GROUP BY u.name
 ORDER BY total_programs DESC;
 
 -- =====================================================
--- 11. NESTED QUERY (NOT IN): Find mentors who have never conducted any sessions
--- (This finds mentors with NO session_appointment records at all)
--- Note: Ken has scheduled/cancelled sessions but no completed sessions with payments
+-- 11. NESTED QUERY (NOT IN): Find mentors who have no session appointments of any kind
 -- =====================================================
 SELECT ua.name AS mentor_name
 FROM mentor m
@@ -124,7 +121,7 @@ WHERE m.mentor_id NOT IN (
 ORDER BY ua.name;
 
 -- =====================================================
--- 12. EXISTS: Find mentees who have active subscriptions
+-- 12. EXISTS: Find mentees who currently have active subscriptions
 -- =====================================================
 SELECT ua.name AS mentee_name, me.current_education_level, me.intended_study_country
 FROM mentee me
@@ -133,7 +130,7 @@ WHERE EXISTS (SELECT 1 FROM mentee_subscription ms WHERE ms.mentee_id = me.mente
 ORDER BY ua.name;
 
 -- =====================================================
--- 13. NOT EXISTS: Find universities that have no programs
+-- 13. NOT EXISTS: Find universities that have no programs registered in the system
 -- =====================================================
 SELECT u.name AS university_name, u.country, u.ranking
 FROM university u
@@ -141,7 +138,7 @@ WHERE NOT EXISTS (SELECT 1 FROM program p WHERE p.university_id = u.university_i
 ORDER BY u.name;
 
 -- =====================================================
--- 14. CORRELATED SUBQUERY: Find mentors who have more completed sessions than the average
+-- 14. CORRELATED SUBQUERY: Find mentors who have completed more sessions than the average mentor
 -- =====================================================
 SELECT ua.name AS mentor_name, 
        (SELECT COUNT(sa.session_id) 
@@ -162,7 +159,7 @@ WHERE (SELECT COUNT(sa.session_id)
              GROUP BY s.mentor_id) AS avg_sessions);
 
 -- =====================================================
--- 15. >=ALL: Find mentors with highest earnings (greater than or equal to ALL others)
+-- 15. >=ALL: Find the mentor(s) with the highest earnings (equal to or greater than all other mentors)
 -- =====================================================
 SELECT ua.name AS mentor_name, SUM(p.amount) AS total_earnings
 FROM payment p
@@ -184,7 +181,7 @@ HAVING SUM(p.amount) >= ALL (
 );
 
 -- =====================================================
--- 16. >ANY: Find mentors earning more than ANY mentor in 'Data Science' field
+-- 16. >ANY: Find mentors earning more than any mentor specializing in Data Science
 -- =====================================================
 SELECT ua.name AS mentor_name, SUM(p.amount) AS total_earnings
 FROM payment p
@@ -207,27 +204,22 @@ HAVING SUM(p.amount) > ANY (
 );
 
 -- =====================================================
--- 17. UNION: Combine active and paused subscriptions
+-- 17. UNION: Compare total revenue generated from sessions versus subscriptions
 -- =====================================================
-SELECT ua.name AS mentee_name, sp.name AS plan_name, ms.status
-FROM mentee_subscription ms
-JOIN subscription_plan sp ON ms.plan_id = sp.plan_id
-JOIN mentee me ON ms.mentee_id = me.mentee_id
-JOIN user_account ua ON me.user_id = ua.user_id
-WHERE ms.status = 'active'
+SELECT 'Session Revenue' AS revenue_type, SUM(p.amount) AS total_amount
+FROM payment p
+JOIN session_payment sp ON p.payment_id = sp.payment_id
+WHERE p.status = 'captured'
 
 UNION
 
-SELECT ua.name AS mentee_name, sp.name AS plan_name, ms.status
-FROM mentee_subscription ms
-JOIN subscription_plan sp ON ms.plan_id = sp.plan_id
-JOIN mentee me ON ms.mentee_id = me.mentee_id
-JOIN user_account ua ON me.user_id = ua.user_id
-WHERE ms.status = 'paused'
-ORDER BY mentee_name;
+SELECT 'Subscription Revenue' AS revenue_type, SUM(p.amount) AS total_amount
+FROM payment p
+JOIN subscription_payment subp ON p.payment_id = subp.payment_id
+WHERE p.status = 'captured';
 
 -- =====================================================
--- 18. SUBQUERY IN SELECT CLAUSE: Show mentor name with total earnings as calculated column
+-- 18. SUBQUERY IN SELECT CLAUSE: Display each mentor's name, field of expertise, and total earnings using a calculated column
 -- =====================================================
 SELECT ua.name AS mentor_name,
        m.field_of_expertise,
@@ -242,7 +234,7 @@ JOIN user_account ua ON m.user_id = ua.user_id
 ORDER BY total_earnings DESC;
 
 -- =====================================================
--- 19. SUBQUERY IN FROM CLAUSE: Use derived table for mentor statistics
+-- 19. SUBQUERY IN FROM CLAUSE: Create a derived table with mentor name, total completed sessions, and total earnings
 -- =====================================================
 SELECT mentor_stats.mentor_name,
        mentor_stats.total_sessions,
@@ -262,7 +254,7 @@ FROM (
 ORDER BY mentor_stats.total_earnings DESC;
 
 -- =====================================================
--- 20. INNER JOIN: List mentees who have given feedback with ratings and comments
+-- 20. INNER JOIN: Display all feedback submitted by mentees including mentor names, ratings, and comments
 -- =====================================================
 SELECT ua_me.name AS mentee_name, ua_m.name AS mentor_name, f.rating, f.comments
 FROM feedback f

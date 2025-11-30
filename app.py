@@ -3,7 +3,7 @@ GlobalEdMentor Database Analytics Application - Web Interface
 Simple Flask frontend to display database queries and visualizations
 """
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 import mysql.connector
 from mysql.connector import Error
 import matplotlib
@@ -12,20 +12,15 @@ import matplotlib.pyplot as plt
 import numpy as np
 import base64
 from io import BytesIO
-import os
-from dotenv import load_dotenv
-
-# Load environment variables
-load_dotenv()
 
 app = Flask(__name__)
 
-# Database configuration from environment variables
+# Database configuration
 DB_CONFIG = {
-    'host': os.getenv('DB_HOST', 'localhost'),
-    'database': os.getenv('DB_NAME', 'GlobalEdMentor'),
-    'user': os.getenv('DB_USER', 'root'),
-    'password': os.getenv('DB_PASSWORD', ''),
+    'host': 'localhost',
+    'database': 'GlobalEdMentor',
+    'user': 'root',
+    'password': 'Niraj@98420',
     'auth_plugin': 'mysql_native_password'
 }
 
@@ -254,7 +249,7 @@ def query1():
 
 @app.route('/query2')
 def query2():
-    """Query 2: Mentor earnings"""
+    """Query 2: Mentor payouts from completed sessions"""
     query = """
         SELECT ua.name AS mentor_name, SUM(p.amount) AS total_earnings
         FROM payment p
@@ -282,7 +277,7 @@ def query2():
     
     return render_template('query.html',
                          query_num=2,
-                         query_title="Total Earnings per Mentor",
+                         query_title="Mentor Payouts from Completed Sessions",
                          result=result,
                          analytics={'total_earnings': total_earnings, 'avg_earnings': avg_earnings},
                          charts=[chart])

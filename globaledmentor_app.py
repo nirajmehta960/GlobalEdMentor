@@ -5,10 +5,8 @@ Python application connecting to MySQL database and performing analytics
 
 import mysql.connector
 from mysql.connector import Error
-from typing import Optional
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 
 
 class GlobalEdMentorAnalytics:
@@ -35,7 +33,7 @@ class GlobalEdMentorAnalytics:
                 password=self.password,
                 auth_plugin=self.auth_plugin
             )
-            
+    
             if self.connection.is_connected():
                 self.cursor = self.connection.cursor()
                 db_info = self.connection.server_info
@@ -515,7 +513,7 @@ class GlobalEdMentorAnalytics:
             for row in records:
                 mentee_name, program, university, country = row
                 print(f"{mentee_name:<25} {program[:38]:<40} {university[:28]:<30}")
-                
+            
                 # Track analytics
                 program_counts[program] = program_counts.get(program, 0) + 1
                 country_counts[country] = country_counts.get(country, 0) + 1
@@ -617,7 +615,7 @@ class GlobalEdMentorAnalytics:
             print(f"Active Mentor Rate: {mentor_activity_rate:.2f}% ({active_mentors}/{total_mentors})")
         
         print("=" * 70)
-    
+
     def run_all_queries(self):
         """Execute all queries and generate analytics"""
         if not self.connection or not self.connection.is_connected():
@@ -637,14 +635,12 @@ class GlobalEdMentorAnalytics:
 
 def main():
     """Main function to run the application"""
-    from dotenv import load_dotenv
-    load_dotenv()
-    
+    # Database configuration
     DB_CONFIG = {
-        'host': os.getenv('DB_HOST', 'localhost'),
-        'database': os.getenv('DB_NAME', 'GlobalEdMentor'),
-        'user': os.getenv('DB_USER', 'root'),
-        'password': os.getenv('DB_PASSWORD', ''),
+        'host': 'localhost',
+        'database': 'GlobalEdMentor',
+        'user': 'root',
+        'password': 'Niraj@98420',
         'auth_plugin': 'mysql_native_password'
     }
     
