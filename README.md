@@ -20,7 +20,7 @@ GlobalEdMentor is a community-driven mentorship platform that connects students 
 ## Project Structure
 
 ```
-GlobalEdMentorMySQLImplementation/
+GlobalEdMentor/
 ├── MySQL Implementation/
 │   ├── DDL_Queries.sql        # MySQL database schema definition
 │   ├── DML_Queries.sql        # MySQL sample data insertion
@@ -28,6 +28,7 @@ GlobalEdMentorMySQLImplementation/
 ├── NoSQL Implementation/
 │   ├── MongoDB_Setup.js       # MongoDB collections and sample data
 │   └── MongoDB_Queries.js     # MongoDB queries (simple, complex, aggregate)
+├── GlobalEdMentor_Simple.py  # Simple Python implementation (RECOMMENDED)
 ├── app.py                     # Flask web application
 ├── globaledmentor_app.py      # Console-based Python application
 ├── templates/
@@ -120,6 +121,50 @@ mysql -u root -p GlobalEdMentor < "MySQL Implementation/SQL_Queries.sql"
 
 ## Python Applications
 
+### Simple Python Implementation (`GlobalEdMentor_Simple.py`) ⭐ RECOMMENDED
+
+A simple, straightforward Python script for database queries and visualizations. Perfect for Jupyter notebooks and presentations.
+
+**Installation:**
+
+Install required packages:
+
+```bash
+pip install mysql-connector-python pandas matplotlib
+```
+
+**Usage:**
+
+1. **For Jupyter Notebook:**
+
+   - Copy the code from `GlobalEdMentor_Simple.py`
+   - Paste into Jupyter notebook cells
+   - Run cells sequentially
+
+2. **For Python Script:**
+   ```bash
+   python3 GlobalEdMentor_Simple.py
+   ```
+
+**Features:**
+
+- ✅ Simple, clean code structure
+- ✅ Executes 5 main queries
+- ✅ Simple analytics (averages, sums, counts)
+- ✅ 5 visualizations (Pie, Bar, Boxplot, Histogram, Scatter Plot)
+- ✅ Warnings suppressed for clean output
+- ✅ Uses `mysql.connector` directly
+- ✅ Perfect for presentations
+
+**Code Structure:**
+
+```
+1. CONNECT TO MYSQL DATABASE
+2. EXECUTE QUERIES (5 queries)
+3. SIMPLE ANALYTICS
+4. VISUALIZATIONS (5 graphs)
+```
+
 ### Console Application (`globaledmentor_app.py`)
 
 A command-line application that executes queries and displays analytics.
@@ -180,6 +225,7 @@ Open your browser and navigate to: `http://127.0.0.1:5000`
 
 Update the database credentials in the following files:
 
+- `GlobalEdMentor_Simple.py` - Update connection parameters in the script
 - `app.py` - Update `DB_CONFIG` dictionary
 - `globaledmentor_app.py` - Update `DB_CONFIG` dictionary in the `main()` function
 
@@ -189,8 +235,10 @@ Update the database credentials in the following files:
 - **Port**: `3306` (default MySQL port)
 - **Database**: `GlobalEdMentor`
 - **User**: `root`
-- **Password**: Update with your MySQL password
+- **Password**: `Niraj@98420` (update with your MySQL password)
 - **Auth Plugin**: `mysql_native_password`
+
+**Note:** The simple Python implementation uses `warnings.filterwarnings('ignore')` to suppress pandas warnings when using `mysql.connector` with `pd.read_sql()`.
 
 ## Data Visualization
 
@@ -211,15 +259,25 @@ Charts are generated using matplotlib and displayed:
 
 ### Python Packages
 
+**For Simple Implementation (`GlobalEdMentor_Simple.py`):**
+
+- `mysql-connector-python` >= 8.0.33
+- `pandas` >= 1.3.0
+- `matplotlib` >= 3.5.0
+
+```bash
+pip install mysql-connector-python pandas matplotlib
+```
+
+**For Full Applications:**
+
 - `mysql-connector-python` >= 8.0.33
 - `matplotlib` >= 3.5.0
 - `numpy` >= 1.21.0
 - `flask` >= 2.0.0
 
-Install all dependencies:
-
 ```bash
-pip install mysql-connector-python matplotlib numpy flask
+pip install mysql-connector-python matplotlib numpy flask pandas
 ```
 
 ### System Requirements
@@ -301,9 +359,11 @@ pip install mysql-connector-python matplotlib numpy flask
 
 - All data is retrieved directly from MySQL database
 - Queries are tested and ready for demonstration
+- **Simple Python implementation** (`GlobalEdMentor_Simple.py`) is recommended for Jupyter notebooks and presentations
 - Web interface provides clean visualization of results
 - Console app is useful for quick data analysis
 - Charts are generated on-the-fly from database queries
+- Warnings are suppressed in the simple implementation for cleaner output
 
 ## MongoDB Implementation (NoSQL)
 
